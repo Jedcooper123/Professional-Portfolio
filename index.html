@@ -144,37 +144,157 @@
         .project-card {
             border: 1px solid #ddd;
             border-radius: 8px;
-            padding: 1.5rem;
-            background: #f9f9f9;
+            padding: 0;
+            background: white;
             transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            overflow: hidden;
         }
 
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
 
         .project-card h3 {
-            margin-top: 0;
+            margin: 0;
+            padding: 1.5rem;
             color: #2c3e50;
+            font-size: 1.3rem;
+            background: #f9f9f9;
         }
 
         .project-card p {
             color: #666;
-            margin-bottom: 1rem;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            margin: 0;
+            line-height: 1.6;
         }
 
         .project-placeholder {
             width: 100%;
             height: 200px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 5px;
-            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .project-tags {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .project-tag {
+            background: #e8f4f8;
+            color: #2980b9;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 1200px;
+            border-radius: 10px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 2px solid #3498db;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #2c3e50;
+            border: none;
+            padding: 0;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .screenshot-item {
+            background: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .screenshot-item img:hover {
+            transform: scale(1.05);
+        }
+
+        .screenshot-caption {
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #666;
         }
 
         .skills-list {
@@ -316,59 +436,128 @@
 
         <section id="projects">
             <h2>My Projects</h2>
-            <p>Here are some cybersecurity projects I've completed that demonstrate my skills in network security, threat detection, and forensic analysis.</p>
+            <p>Click on any project to see detailed screenshots and analysis</p>
             
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card" onclick="openModal('modal1')">
                     <div class="project-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">Network Traffic Analysis</div>
                     <h3>Network Traffic Analysis Using Wireshark</h3>
-                    <p><strong>Overview:</strong> Conducted a comprehensive forensic investigation of the "Catbomber" malware incident using Wireshark to analyze network traffic and identify compromised systems. This project demonstrated real-world Network Security Monitoring (NSM) techniques used in enterprise environments.</p>
-                    
-                    <p><strong>Key Accomplishments:</strong></p>
-                    <p>• Identified two infected clients (10.5.28.229 and 10.5.28.8) by filtering HTTP traffic and examining TLS handshakes to trace malware communication patterns</p>
-                    <p>• Extracted critical exfiltrated data including usernames, hostnames, email credentials, and passwords from captured network packets</p>
-                    <p>• Discovered and verified malicious files (imgpaper and cursor) as Indicators of Compromise by extracting file hashes and validating them through VirusTotal</p>
-                    <p>• Analyzed fake SSL certificates used in post-infection traffic over TCP ports 443, 447, and 449 to identify command-and-control communications</p>
-                    
-                    <p><strong>What I Learned:</strong> This project taught me how to perform packet-level forensic analysis to reconstruct attack timelines and identify breach impacts. I gained hands-on experience with PCAP file analysis, understanding how to trace malware propagation between network clients, and how attackers exfiltrate sensitive data. The exercise reinforced the critical importance of Network Security Monitoring for discovering, investigating, and reporting cybersecurity incidents in real-time.</p>
-                    
-                    <p><strong>Technologies:</strong> Wireshark, PCAP Analysis, Network Security Monitoring (NSM), HTTP/TLS Protocol Analysis, VirusTotal, PowerShell</p>
+                    <p>Forensic investigation of the "Catbomber" malware incident using packet-level analysis to identify compromised systems and exfiltrated data.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Wireshark</span>
+                        <span class="project-tag">PCAP Analysis</span>
+                        <span class="project-tag">Forensics</span>
+                        <span class="project-tag">Malware Detection</span>
+                    </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">Intrusion Detection System</div>
-                    <h3>Intrusion Detection & Prevention System Implementation</h3>
-                    <p><strong>Overview:</strong> Deployed and configured Snort IDS/IPS on a pfSense firewall to create a multi-layered defense-in-depth security architecture. This project simulated real-world network attacks and demonstrated how intrusion detection systems protect enterprise networks from both external and internal threats.</p>
-                    
-                    <p><strong>Key Accomplishments:</strong></p>
-                    <p>• Successfully installed Snort with GPLv2 Community Rules and configured automatic daily rule updates to maintain current threat detection signatures</p>
-                    <p>• Created both WAN and LAN interface monitoring to detect external attacks and internal threats including malware downloads, lateral movement, and policy violations</p>
-                    <p>• Developed custom Snort rules for content-based detection and IP-specific monitoring, validating that custom signatures load and execute correctly</p>
-                    <p>• Simulated an internal threat by hosting malware (cursor.png containing a hidden Windows executable) on a Kali Linux Apache server, which Snort successfully detected as a "Network Trojan" despite the disguised file extension</p>
-                    <p>• Captured and analyzed traffic using pfSense packet capture tools and Wireshark to verify that Snort alerts aligned with actual malicious payloads in network traffic</p>
-                    
-                    <p><strong>What I Learned:</strong> This project gave me deep insight into defense-in-depth strategies and how multiple independent security controls work together to prevent single points of failure. I learned the critical difference between IDS (detection and alerts) and IPS (detection plus active blocking), and how Snort can function as both. The hands-on experience with creating custom detection rules taught me how to tune security systems for specific threats and IOC-based detections. Most importantly, I understood the limitations of IDS/IPS with encrypted HTTPS traffic, highlighting critical blind spots in network security.</p>
-                    
-                    <p><strong>Technologies:</strong> Snort IDS/IPS, pfSense Firewall, Kali Linux, Apache2, Wireshark, Custom Snort Signatures, Packet Capture Analysis</p>
+                <div class="project-card" onclick="openModal('modal2')">
+                    <div class="project-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">Intrusion Detection</div>
+                    <h3>Intrusion Detection & Prevention System</h3>
+                    <p>Deployed Snort IDS/IPS on pfSense firewall to create multi-layered defense-in-depth security architecture with custom detection rules.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Snort IDS/IPS</span>
+                        <span class="project-tag">pfSense</span>
+                        <span class="project-tag">Network Security</span>
+                        <span class="project-tag">Custom Rules</span>
+                    </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">Password Security Analysis</div>
-                    <h3>Windows Password Authentication & Hash Cracking Analysis</h3>
-                    <p><strong>Overview:</strong> Analyzed Windows authentication protocols and demonstrated password vulnerability through network traffic interception and hash cracking techniques. This project simulated how attackers capture and crack password hashes, providing crucial insights into password security best practices.</p>
-                    
-                    <p><strong>Key Accomplishments:</strong></p>
-                    <p>• Captured Windows NTLMv2 authentication traffic using Wireshark, demonstrating how eavesdroppers can intercept challenge-response protocols even when passwords aren't transmitted in plaintext</p>
-                    <p>• Extracted complete password hashes from network packets including username, domain name, server challenge, NTProofStr, and NTLMv2 response with precise syntax formatting</p>
-                    <p>• Performed offline password cracking attacks using Hashcat on Kali Linux with both dictionary attacks (rockyou.txt wordlist) and brute-force methods to crack captured hashes</p>
-                    <p>• Analyzed cracking time scaling from seconds for common passwords to virtually impossible for 16+ character complex passwords, demonstrating the exponential protection that password length provides</p>
-                    
-                    <p><strong>What I Learned:</strong> This project revealed the vulnerabilities in Windows authentication and why password complexity requirements exist. I learned that password length is even more critical than character substitutions when defending against brute-force attacks due to exponential time scaling. The exercise demonstrated why attackers prefer wordlist attacks (relying on users choosing common passwords) over computationally expensive brute-force methods. Most importantly, I gained practical understanding of why unique passwords, password managers, and multi-factor authentication are essential security practices, as they defend against both hash capture and credential stuffing attacks.</p>
-                    
-                    <p><strong>Technologies:</strong> Wireshark, NTLMv2 Protocol Analysis, Hashcat, Kali Linux, Dictionary Attacks, Brute-Force Cracking, SMB2 Protocol Analysis</p>
+                <div class="project-card" onclick="openModal('modal3')">
+                    <div class="project-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">Password Security</div>
+                    <h3>Password Authentication & Hash Cracking</h3>
+                    <p>Analyzed Windows authentication protocols and demonstrated password vulnerabilities through network interception and hash cracking techniques.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Hashcat</span>
+                        <span class="project-tag">NTLMv2</span>
+                        <span class="project-tag">Kali Linux</span>
+                        <span class="project-tag">Password Security</span>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- Modal 1: Network Traffic Analysis -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" onclick="closeModal('modal1')">&times;</span>
+                    <h2>Network Traffic Analysis Using Wireshark</h2>
+                </div>
+                <div class="modal-body">
+                    <h3>Project Overview</h3>
+                    <p>This project involved conducting a comprehensive forensic investigation of the "Catbomber" malware incident. Using Wireshark, I analyzed network traffic to identify compromised systems, trace malware communication patterns, and extract critical evidence of the attack.</p>
+                    
+                    <h3>Key Findings</h3>
+                    <p>• Identified two infected clients (10.5.28.229 and 10.5.28.8) through HTTP traffic filtering and TLS handshake analysis</p>
+                    <p>• Extracted exfiltrated credentials including usernames, hostnames, email addresses, and passwords from captured packets</p>
+                    <p>• Verified malicious files as Indicators of Compromise using VirusTotal</p>
+                    <p>• Detected fake SSL certificates used in command-and-control communications</p>
+                    
+                    <h3>Screenshots & Analysis</h3>
+                    <div class="screenshot-grid">
+                        <div class="screenshot-item">
+                            <img src="https://placeholder-image-url-1.jpg" alt="Wireshark Traffic Analysis" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Email Credentials Exfiltration:</strong> HTTP stream showing captured email login credentials and passwords transmitted by infected client.</div>
+                        </div>
+                        
+                        <div class="screenshot-item">
+                            <img src="https://placeholder-image-url-2.jpg" alt="IP Address Check" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Suspicious IP Check:</strong> Detected external IP address check from infected host - a common malware reconnaissance technique.</div>
+                        </div>
+                        
+                        <div class="screenshot-item">
+                            <img src="https://placeholder-image-url-3.jpg" alt="Infected Client Info" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Infected Client Discovery:</strong> HTTP traffic revealing hostname "CAT-BOMB-W7-PC" and network configuration details of the compromised system.</div>
+                        </div>
+                        
+                        <div class="screenshot-item">
+                            <img src="https://placeholder-image-url-4.jpg" alt="Malware File Extraction" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Malware Extraction:</strong> Using Wireshark to export suspicious files for analysis and hash verification.</div>
+                        </div>
+                        
+                        <div class="screenshot-item">
+                            <img src="https://placeholder-image-url-5.jpg" alt="VirusTotal Results" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>VirusTotal Confirmation:</strong> File hash uploaded to VirusTotal confirming 61/72 security vendors flagged the file as malicious trojan.</div>
+                        </div>
+                        
+                        <div class="screenshot-item">
+                            <img src="https://placeholder-image-url-6.jpg" alt="Fake Certificate" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Fake SSL Certificate:</strong> Post-infection TLS traffic analysis revealing fraudulent certificate with commonName "example.com" used for C2 communication.</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Technologies Used</h3>
+                    <p>Wireshark • PCAP Analysis • Network Security Monitoring • HTTP/TLS Protocol Analysis • VirusTotal • PowerShell • Forensic Analysis</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 2: IDS/IPS (placeholder for now) -->
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" onclick="closeModal('modal2')">&times;</span>
+                    <h2>Intrusion Detection & Prevention System</h2>
+                </div>
+                <div class="modal-body">
+                    <p>Screenshots coming soon...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 3: Password Security (placeholder for now) -->
+        <div id="modal3" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" onclick="closeModal('modal3')">&times;</span>
+                    <h2>Password Authentication & Hash Cracking</h2>
+                </div>
+                <div class="modal-body">
+                    <p>Screenshots coming soon...</p>
+                </div>
+            </div>
+        </div>
 
         <section id="career">
             <h2>Career Interests</h2>
@@ -420,6 +609,24 @@
                 navigateTo(page);
             });
         });
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
     </script>
 </body>
 </html>
