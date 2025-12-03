@@ -497,33 +497,33 @@
                     <h3>Screenshots & Analysis</h3>
                     <div class="screenshot-grid">
                         <div class="screenshot-item">
-                            <img src="https://placeholder-image-url-1.jpg" alt="Wireshark Traffic Analysis" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>Email Credentials Exfiltration:</strong> HTTP stream showing captured email login credentials and passwords transmitted by infected client.</div>
+                            <img src="screenshots/network-1.jpg" alt="Fake SSL Certificate" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Fake SSL Certificate:</strong> Post-infection TLS traffic analysis revealing fraudulent certificate with commonName "example.com" used for command-and-control communication over TCP ports 443, 447, and 449.</div>
                         </div>
                         
                         <div class="screenshot-item">
-                            <img src="https://placeholder-image-url-2.jpg" alt="IP Address Check" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>Suspicious IP Check:</strong> Detected external IP address check from infected host - a common malware reconnaissance technique.</div>
+                            <img src="screenshots/network-2.jpg" alt="VirusTotal Malware Confirmation" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>VirusTotal Confirmation:</strong> File hash uploaded to VirusTotal confirming 61/72 security vendors flagged cursor.png as malicious trojan (Emotet/ERPH). Verified as Indicator of Compromise.</div>
                         </div>
                         
                         <div class="screenshot-item">
-                            <img src="https://placeholder-image-url-3.jpg" alt="Infected Client Info" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>Infected Client Discovery:</strong> HTTP traffic revealing hostname "CAT-BOMB-W7-PC" and network configuration details of the compromised system.</div>
+                            <img src="screenshots/network-3.jpg" alt="Email Credentials Exfiltration" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Email Credentials Exfiltration:</strong> HTTP stream showing captured Outlook passwords and email credentials (phillip.ghent@...) being transmitted by infected client to attacker's server.</div>
                         </div>
                         
                         <div class="screenshot-item">
-                            <img src="https://placeholder-image-url-4.jpg" alt="Malware File Extraction" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>Malware Extraction:</strong> Using Wireshark to export suspicious files for analysis and hash verification.</div>
+                            <img src="screenshots/network-4.jpg" alt="Second Infected Client" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Second Infected Client (Catbomber-DC):</strong> Windows IP configuration revealing second compromised system on the network with hostname "Catbomber-DC" and IP address 10.5.28.8.</div>
                         </div>
                         
                         <div class="screenshot-item">
-                            <img src="https://placeholder-image-url-5.jpg" alt="VirusTotal Results" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>VirusTotal Confirmation:</strong> File hash uploaded to VirusTotal confirming 61/72 security vendors flagged the file as malicious trojan.</div>
+                            <img src="screenshots/network-5.jpg" alt="Primary Infected Client" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Primary Infected Client Discovery:</strong> HTTP traffic revealing hostname "Cat-Bomb-W7-PC" with IP address 10.5.28.229 (Preferred) and network configuration details of the primary compromised system.</div>
                         </div>
                         
                         <div class="screenshot-item">
-                            <img src="https://placeholder-image-url-6.jpg" alt="Fake Certificate" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>Fake SSL Certificate:</strong> Post-infection TLS traffic analysis revealing fraudulent certificate with commonName "example.com" used for C2 communication.</div>
+                            <img src="screenshots/network-6.jpg" alt="Malware File Extraction" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Malware Extraction Process:</strong> Using Wireshark's Export HTTP Objects feature to extract suspicious files (cursor.png, imgpaper.png) from network traffic for forensic analysis and hash verification.</div>
                         </div>
                     </div>
                     
