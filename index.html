@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        nav {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+        }
+
+        nav h1::before {
+            content: "Jed Cooper";
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            display: none;
+            background: white;
+            border-radius: 8px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: #34495e;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            border: none;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background: #2980b9;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: #f9f9f9;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .project-card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .project-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .project-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .contact-info {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .contact-info p {
+            margin: 1rem 0;
+            font-size: 1.1rem;
+        }
+
+        .contact-info a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .career-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .career-section h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <h1>Jed Cooper</h1>
+            <ul>
+                <li><a href="#" data-page="home">Home</a></li>
+                <li><a href="#" data-page="about">About</a></li>
+                <li><a href="#" data-page="projects">Projects</a></li>
+                <li><a href="#" data-page="career">Career</a></li>
+                <li><a href="#" data-page="contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section id="home" class="active">
+            <div class="hero">
+                <img src="https://i.imgur.com/placeholder.jpg" alt="Jed Cooper" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; margin-bottom: 2rem; border: 5px solid #3498db;">
+                <h2>Jed Cooper</h2>
+                <p style="font-size: 1.3rem; color: #2c3e50; font-weight: 500;">Cybersecurity Professional | Network Security | Threat Analysis</p>
+                <p>Appalachian State University Graduate specializing in Cybersecurity</p>
+                <button class="cta-button" onclick="navigateTo('projects')">View My Work</button>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Hello! I'm Jed Cooper, a recent graduate from Appalachian State University with a Bachelor of Science in Business Administration, majoring in Computer Information Systems with a concentration in Cybersecurity. I'm passionate about network security, threat detection, and protecting digital assets through hands-on technical solutions.</p>
+            
+            <h3>Education</h3>
+            <p><strong>Appalachian State University</strong> - Boone, NC<br>
+            Bachelor of Science in Business Administration | December 2025<br>
+            Major: Computer Information Systems | Concentration: Cybersecurity<br>
+            Cumulative GPA: 3.37</p>
+            
+            <h3>Experience</h3>
+            <p><strong>Network Technician Assistant (Internship)</strong> - Geeks at Work<br>
+            October 2024 – July 2025</p>
+            <p>Provided hands-on technical support for in-store operations including troubleshooting and repairing PCs, performing data transfers, and resolving hardware/software issues. Assisted in installing, configuring, and maintaining networking equipment for various businesses including security cameras, PCs, and Starlink Internet. Gained valuable experience in both onsite technical support and network infrastructure implementation.</p>
+            
+            <h3>Skills & Technologies</h3>
+            <div class="skills-list">
+                <span class="skill-tag">Wireshark & Traffic Analysis</span>
+                <span class="skill-tag">Microsoft Azure</span>
+                <span class="skill-tag">TCP/IP, DNS, DHCP, VPN</span>
+                <span class="skill-tag">Linux Environments</span>
+                <span class="skill-tag">Burp Suite</span>
+                <span class="skill-tag">Network Troubleshooting</span>
+                <span class="skill-tag">Python Programming</span>
+                <span class="skill-tag">SQL & Database Management</span>
+                <span class="skill-tag">Penetration Testing</span>
+                <span class="skill-tag">Snort IDS/IPS</span>
+                <span class="skill-tag">pfSense Firewall</span>
+                <span class="skill-tag">Excel - MOS Certified</span>
+            </div>
+            
+            <h3>Organizations & Involvement</h3>
+            <p><strong>National Cyber League (NCL)</strong> - 2024-2025<br>
+            Actively participated in practice gyms and team exercises relating to network traffic analysis, open-source intelligence, web application security, and password cracking.</p>
+            
+            <p><strong>Appalachian Information Technology Professionals (AppITP)</strong> - 2023-Present<br>
+            Attending speaker meetings and networking with peers while learning professional expectations within the cybersecurity field.</p>
+        </section>
+
+        <section id="projects">
+            <h2>My Projects</h2>
+            <p>Here are some cybersecurity projects I've completed that demonstrate my skills in network security, threat detection, and forensic analysis.</p>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">Network Traffic Analysis</div>
+                    <h3>Network Traffic Analysis Using Wireshark</h3>
+                    <p><strong>Overview:</strong> Conducted a comprehensive forensic investigation of the "Catbomber" malware incident using Wireshark to analyze network traffic and identify compromised systems. This project demonstrated real-world Network Security Monitoring (NSM) techniques used in enterprise environments.</p>
+                    
+                    <p><strong>Key Accomplishments:</strong></p>
+                    <p>• Identified two infected clients (10.5.28.229 and 10.5.28.8) by filtering HTTP traffic and examining TLS handshakes to trace malware communication patterns</p>
+                    <p>• Extracted critical exfiltrated data including usernames, hostnames, email credentials, and passwords from captured network packets</p>
+                    <p>• Discovered and verified malicious files (imgpaper and cursor) as Indicators of Compromise by extracting file hashes and validating them through VirusTotal</p>
+                    <p>• Analyzed fake SSL certificates used in post-infection traffic over TCP ports 443, 447, and 449 to identify command-and-control communications</p>
+                    
+                    <p><strong>What I Learned:</strong> This project taught me how to perform packet-level forensic analysis to reconstruct attack timelines and identify breach impacts. I gained hands-on experience with PCAP file analysis, understanding how to trace malware propagation between network clients, and how attackers exfiltrate sensitive data. The exercise reinforced the critical importance of Network Security Monitoring for discovering, investigating, and reporting cybersecurity incidents in real-time.</p>
+                    
+                    <p><strong>Technologies:</strong> Wireshark, PCAP Analysis, Network Security Monitoring (NSM), HTTP/TLS Protocol Analysis, VirusTotal, PowerShell</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">Intrusion Detection System</div>
+                    <h3>Intrusion Detection & Prevention System Implementation</h3>
+                    <p><strong>Overview:</strong> Deployed and configured Snort IDS/IPS on a pfSense firewall to create a multi-layered defense-in-depth security architecture. This project simulated real-world network attacks and demonstrated how intrusion detection systems protect enterprise networks from both external and internal threats.</p>
+                    
+                    <p><strong>Key Accomplishments:</strong></p>
+                    <p>• Successfully installed Snort with GPLv2 Community Rules and configured automatic daily rule updates to maintain current threat detection signatures</p>
+                    <p>• Created both WAN and LAN interface monitoring to detect external attacks and internal threats including malware downloads, lateral movement, and policy violations</p>
+                    <p>• Developed custom Snort rules for content-based detection and IP-specific monitoring, validating that custom signatures load and execute correctly</p>
+                    <p>• Simulated an internal threat by hosting malware (cursor.png containing a hidden Windows executable) on a Kali Linux Apache server, which Snort successfully detected as a "Network Trojan" despite the disguised file extension</p>
+                    <p>• Captured and analyzed traffic using pfSense packet capture tools and Wireshark to verify that Snort alerts aligned with actual malicious payloads in network traffic</p>
+                    
+                    <p><strong>What I Learned:</strong> This project gave me deep insight into defense-in-depth strategies and how multiple independent security controls work together to prevent single points of failure. I learned the critical difference between IDS (detection and alerts) and IPS (detection plus active blocking), and how Snort can function as both. The hands-on experience with creating custom detection rules taught me how to tune security systems for specific threats and IOC-based detections. Most importantly, I understood the limitations of IDS/IPS with encrypted HTTPS traffic, highlighting critical blind spots in network security.</p>
+                    
+                    <p><strong>Technologies:</strong> Snort IDS/IPS, pfSense Firewall, Kali Linux, Apache2, Wireshark, Custom Snort Signatures, Packet Capture Analysis</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">Password Security Analysis</div>
+                    <h3>Windows Password Authentication & Hash Cracking Analysis</h3>
+                    <p><strong>Overview:</strong> Analyzed Windows authentication protocols and demonstrated password vulnerability through network traffic interception and hash cracking techniques. This project simulated how attackers capture and crack password hashes, providing crucial insights into password security best practices.</p>
+                    
+                    <p><strong>Key Accomplishments:</strong></p>
+                    <p>• Captured Windows NTLMv2 authentication traffic using Wireshark, demonstrating how eavesdroppers can intercept challenge-response protocols even when passwords aren't transmitted in plaintext</p>
+                    <p>• Extracted complete password hashes from network packets including username, domain name, server challenge, NTProofStr, and NTLMv2 response with precise syntax formatting</p>
+                    <p>• Performed offline password cracking attacks using Hashcat on Kali Linux with both dictionary attacks (rockyou.txt wordlist) and brute-force methods to crack captured hashes</p>
+                    <p>• Analyzed cracking time scaling from seconds for common passwords to virtually impossible for 16+ character complex passwords, demonstrating the exponential protection that password length provides</p>
+                    
+                    <p><strong>What I Learned:</strong> This project revealed the vulnerabilities in Windows authentication and why password complexity requirements exist. I learned that password length is even more critical than character substitutions when defending against brute-force attacks due to exponential time scaling. The exercise demonstrated why attackers prefer wordlist attacks (relying on users choosing common passwords) over computationally expensive brute-force methods. Most importantly, I gained practical understanding of why unique passwords, password managers, and multi-factor authentication are essential security practices, as they defend against both hash capture and credential stuffing attacks.</p>
+                    
+                    <p><strong>Technologies:</strong> Wireshark, NTLMv2 Protocol Analysis, Hashcat, Kali Linux, Dictionary Attacks, Brute-Force Cracking, SMB2 Protocol Analysis</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="career">
+            <h2>Career Interests</h2>
+            
+            <div class="career-section">
+                <h3>What I'm Looking For</h3>
+                <p>I'm seeking opportunities in cybersecurity and network security where I can apply my hands-on experience in threat detection, network traffic analysis, and security infrastructure. I'm particularly interested in roles involving Security Operations Center (SOC) analysis, network security engineering, penetration testing, or cybersecurity consulting where I can help organizations defend against evolving cyber threats.</p>
+            </div>
+
+            <h3>Professional Goals</h3>
+            <p>My short-term goal is to establish myself as a skilled cybersecurity professional, gaining real-world experience in threat detection and incident response. Long-term, I aim to advance into specialized roles such as Security Architect or Penetration Testing Lead, where I can design comprehensive security solutions and mentor others in the field. I'm committed to continuous learning through certifications like Security+, CEH, and eventually CISSP to stay current with industry standards and emerging threats.</p>
+
+            <h3>What I Bring</h3>
+            <p>I offer a unique combination of technical expertise and practical experience gained through academic projects, competitive cybersecurity challenges with the National Cyber League, and hands-on work as a Network Technician Assistant. My projects demonstrate proficiency in network traffic analysis, intrusion detection systems, and password security assessment. I'm a strong communicator who can translate complex technical concepts for non-technical stakeholders, and I approach every challenge with accountability and attention to detail—skills refined through both my cybersecurity coursework and professional experience.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            <p>I'd love to hear from you! Whether you have a question, opportunity, or just want to connect, feel free to reach out.</p>
+            
+            <div class="contact-info">
+                <p><strong>Email:</strong> <a href="mailto:jedpcooper@gmail.com">jedpcooper@gmail.com</a></p>
+                <p><strong>Phone:</strong> <a href="tel:+13367070245">(336) 707-0245</a></p>
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jed-cooper" target="_blank">linkedin.com/in/jed-cooper</a></p>
+                <p><strong>Location:</strong> Boone, North Carolina</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Jed Cooper. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function navigateTo(page) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById(page).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = e.target.getAttribute('data-page');
+                navigateTo(page);
+            });
+        });
+    </script>
+</body>
+</html>
