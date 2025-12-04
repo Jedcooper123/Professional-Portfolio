@@ -33,90 +33,102 @@
     <div class="container">
         <!-- HOME / HERO -->
         <section id="home" class="active">
-            <div class="hero">
-                <div class="hero-left">
-                    <div class="hero-tag">Blue-team driven / attacker aware</div>
-                    <h2>Jed Cooper</h2>
-                    <p class="hero-subline">Cybersecurity • Network Security • Threat Analysis</p>
-                    <p>
-                        Appalachian State CIS graduate focused on breaking down network traffic, spotting weak passwords,
-                        and building practical defenses that actually stand up to attackers.
-                    </p>
+    <div class="hero">
+        <div class="hero-left">
+            <div class="hero-tag">Actively looking for cybersecurity roles</div>
+            <h2>Jed Cooper</h2>
+            <p class="hero-subline">Cybersecurity • Network Security • Threat Analysis</p>
+            <p>
+                I just finished my CIS degree with a cybersecurity concentration at App State. 
+                Most of my projects are hands-on labs where I would analyze network traffic, conducted password cracking,
+                and built small lab environments to see how attacks actually play out.
+            </p>
 
-                    <div class="hero-buttons">
-                        <button class="cta-button" onclick="navigateTo('projects')">View My Work</button>
-                        <button class="secondary-button" onclick="navigateTo('about')">About &amp; Skills</button>
-                    </div>
-                </div>
-
-                <div class="hero-right">
-                    <div class="hero-photo-shell">
-                        <!-- Put your real image file in /img and set the src, e.g. img/jed-headshot.jpg -->
-                        <img src="img/jed-headshot.jpg" alt="Portrait of cybersecurity professional Jed Cooper">
-                    </div>
-                    <div class="hero-caption">Shot on campus • ready for the SOC</div>
-                </div>
+            <div class="hero-buttons">
+                <button class="cta-button" onclick="navigateTo('projects')">View My Work</button>
+                <button class="secondary-button" onclick="navigateTo('about')">About &amp; Skills</button>
             </div>
-        </section>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-photo-shell">
+                <!-- Put your real image file in the SAME folder as index.html named exactly jed-headshot.jpg -->
+                <img src="jed-headshot.jpg" alt="Portrait of cybersecurity professional Jed Cooper">
+            </div>
+        </div>
+    </div>
+</section>
+
 
         <!-- ABOUT -->
         <section id="about">
-            <h2>About Me</h2>
-            <p>
-                Hello! I'm Jed Cooper, a recent graduate from Appalachian State University with a Bachelor of Science
-                in Business Administration, majoring in Computer Information Systems with a concentration in Cybersecurity.
-                I'm passionate about network security, threat detection, and protecting digital assets through hands-on
-                technical solutions.
-            </p>
-            
-            <h3>Education</h3>
-            <p>
-                <strong>Appalachian State University</strong> — Boone, NC<br>
-                Bachelor of Science in Business Administration | December 2025<br>
-                Major: Computer Information Systems | Concentration: Cybersecurity<br>
-                Cumulative GPA: 3.37
-            </p>
-            
-            <h3>Experience</h3>
-            <p><strong>Network Technician Assistant (Internship)</strong> — Geeks at Work<br>
-            October 2024 – July 2025</p>
-            <p>
-                Provided hands-on technical support for in-store operations including troubleshooting and repairing PCs,
-                performing data transfers, and resolving hardware/software issues. Assisted in installing, configuring,
-                and maintaining networking equipment for various businesses including security cameras, PCs, and
-                Starlink Internet. Gained valuable experience in both onsite technical support and network infrastructure
-                implementation.
-            </p>
-            
-            <h3>Skills &amp; Technologies</h3>
-            <div class="skills-list">
-                <span class="skill-tag">Wireshark &amp; Traffic Analysis</span>
-                <span class="skill-tag">Microsoft Azure</span>
-                <span class="skill-tag">TCP/IP, DNS, DHCP, VPN</span>
-                <span class="skill-tag">Linux Environments</span>
-                <span class="skill-tag">Burp Suite</span>
-                <span class="skill-tag">Network Troubleshooting</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">SQL &amp; Databases</span>
-                <span class="skill-tag">Penetration Testing</span>
-                <span class="skill-tag">Snort IDS/IPS</span>
-                <span class="skill-tag">pfSense Firewall</span>
-                <span class="skill-tag">Excel — MOS Certified</span>
-            </div>
-            
-            <h3>Organizations &amp; Involvement</h3>
-            <p>
-                <strong>National Cyber League (NCL)</strong> — 2024–2025<br>
-                Actively participated in practice gyms and team exercises relating to network traffic analysis,
-                open-source intelligence, web application security, and password cracking.
-            </p>
-            
-            <p>
-                <strong>Appalachian Information Technology Professionals (AppITP)</strong> — 2023–Present<br>
-                Attending speaker meetings and networking with peers while learning professional expectations within
-                the cybersecurity field.
-            </p>
-        </section>
+    <h2>About Me</h2>
+
+    <div class="info-card">
+        <h3>Who I Am</h3>
+        <p>
+            I'm Jed Cooper, a CIS major with a cybersecurity concentration from Appalachian State. 
+            I like breaking things in lab environments, figuring out how they actually worked, 
+            and then tightening them back up so they’re harder to break next time. 
+            Most of my work so far has been around networks, passwords, and small business tech.
+        </p>
+    </div>
+
+    <div class="info-card">
+        <h3>Education</h3>
+        <p>
+            <strong>Appalachian State University</strong> — Boone, NC<br>
+            Bachelor of Science in Business Administration, Computer Information Systems<br>
+            Concentration in Cybersecurity (Graduating December 2025)
+        </p>
+    </div>
+
+    <div class="info-card">
+        <h3>Experience</h3>
+        <p><strong>Network Technician Assistant (Internship)</strong> — Geeks at Work<br>
+        October 2024 – July 2025</p>
+        <p>
+            Helped customers with broken or slow PCs, data transfers, and general “my computer is acting weird” issues. 
+            On the networking side, I assisted with installs and troubleshooting for security cameras, PCs, 
+            Starlink setups, and small office networks. It gave me a good feel for how messy real environments can be 
+            and how important clear documentation is.
+        </p>
+    </div>
+
+    <div class="info-card">
+        <h3>Skills &amp; Technologies</h3>
+        <div class="skills-list">
+            <span class="skill-tag">Wireshark &amp; Traffic Analysis</span>
+            <span class="skill-tag">Microsoft Azure</span>
+            <span class="skill-tag">TCP/IP, DNS, DHCP, VPN</span>
+            <span class="skill-tag">Linux Environments</span>
+            <span class="skill-tag">Burp Suite</span>
+            <span class="skill-tag">Network Troubleshooting</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">SQL &amp; Databases</span>
+            <span class="skill-tag">Snort IDS/IPS</span>
+            <span class="skill-tag">pfSense Firewall</span>
+            <span class="skill-tag">Excel — MOS Certified</span>
+        </div>
+    </div>
+
+    <div class="info-card">
+        <h3>Organizations &amp; Involvement</h3>
+        <p>
+            <strong>National Cyber League (NCL)</strong> — 2024–2025<br>
+            Spent time in the NCL gyms working on traffic analysis, OSINT, web app security, and cracking challenges. 
+            It was a good way to pressure-test what I was learning in class.
+        </p>
+        
+        <p>
+            <strong>Appalachian Information Technology Professionals (AppITP)</strong> — 2023–2025<br>
+            Went to talks, met people working in the field, and got a better sense of what’s expected in entry-level 
+            security and IT roles.
+        </p>
+    </div>
+</section>
+
+          
 
         <!-- PROJECTS -->
         <section id="projects">
