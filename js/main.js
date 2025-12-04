@@ -70,3 +70,23 @@ document.addEventListener("DOMContentLoaded", () => {
         navigateTo("home");
     }
 });
+
+function openImageLightbox(src) {
+    const lightbox = document.getElementById("image-lightbox");
+    const img = document.getElementById("lightbox-img");
+    if (!lightbox || !img) return;
+
+    img.src = src;
+    lightbox.classList.add("active");
+    document.body.style.overflow = "hidden";
+}
+
+function closeImageLightbox() {
+    const lightbox = document.getElementById("image-lightbox");
+    const img = document.getElementById("lightbox-img");
+    if (!lightbox || !img) return;
+
+    img.src = "";
+    lightbox.classList.remove("active");
+    document.body.style.overflow = "auto";
+}
