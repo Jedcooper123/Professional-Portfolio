@@ -664,7 +664,7 @@ footer {
 
 .internship-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     margin-top: 1.75rem;
 }
@@ -703,16 +703,17 @@ footer {
 }
 
 .intern-images {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.75rem;
+    margin-top: 0.5rem;
 }
 
 .intern-images img {
-    width: calc(50% - 0.4rem);
-    max-height: 150px;
+    width: 100%;
+    height: 170px;               /* same height for all */
+    object-fit: cover;           /* crop nicely */
     border-radius: 10px;
-    object-fit: cover;
     cursor: pointer;
     border: 1px solid rgba(148, 163, 184, 0.6);
     transition:
@@ -728,9 +729,89 @@ footer {
 }
 
 @media (max-width: 640px) {
+    .intern-images {
+        grid-template-columns: 1fr;
+    }
+
     .intern-images img {
-        width: 100%;
-        max-height: 210px;
+        height: 210px;
     }
 }
 
+/* ---------- HERO BUTTONS ---------- */
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 1.4rem;
+}
+
+.hero-button,
+.cta-button,
+.secondary-button,
+.primary-internship-button {
+    font-family: inherit;
+    font-size: 0.98rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: 999px;
+    padding: 0.8rem 1.6rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.2s ease,
+        border-color 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* top two buttons look the same size */
+.cta-button,
+.secondary-button {
+    min-width: 160px;
+    background: #0f172a;
+    color: #e5e7eb;
+    border-color: rgba(148, 163, 184, 0.7);
+    box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
+}
+
+.cta-button:hover,
+.secondary-button:hover {
+    background: #1d4ed8;
+    border-color: #38bdf8;
+    box-shadow: 0 0 22px rgba(37, 99, 235, 0.6);
+    transform: translateY(-2px);
+}
+
+/* big main button underneath */
+.primary-internship-button {
+    margin-top: 1.1rem;
+    width: 100%;                  /* as wide as both smaller buttons combined */
+    background: linear-gradient(135deg, #1d4ed8, #38bdf8);
+    color: #f9fafb;
+    box-shadow: 0 0 26px rgba(56, 189, 248, 0.55);
+}
+
+.primary-internship-button:hover {
+    background: linear-gradient(135deg, #1e40af, #0ea5e9);
+    box-shadow: 0 0 34px rgba(59, 130, 246, 0.7);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-button,
+    .cta-button,
+    .secondary-button {
+        width: 100%;
+    }
+}
