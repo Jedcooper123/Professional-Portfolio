@@ -52,7 +52,7 @@ function closeModal(modalId) {
     document.body.style.overflow = "auto";
 }
 
-// close modal when clicking outside the content
+// close modal when clicking on overlay (but not when clicking inside content)
 window.addEventListener("click", (event) => {
     if (event.target.classList && event.target.classList.contains("modal")) {
         event.target.classList.remove("active");
@@ -60,16 +60,7 @@ window.addEventListener("click", (event) => {
     }
 });
 
-// -------- INITIALIZATION -------- //
-
-// on first load, make sure "home" is active
-document.addEventListener("DOMContentLoaded", () => {
-    // if no section has .active, default to home
-    const activeSection = document.querySelector("section.active");
-    if (!activeSection) {
-        navigateTo("home");
-    }
-});
+// -------- IMAGE LIGHTBOX (same-page zoom) -------- //
 
 function openImageLightbox(src) {
     const lightbox = document.getElementById("image-lightbox");
@@ -90,3 +81,22 @@ function closeImageLightbox() {
     lightbox.classList.remove("active");
     document.body.style.overflow = "auto";
 }
+
+// close lightbox when clicking background
+window.addEventListener("click", (event) => {
+    const lightbox = document.getElementById("image-lightbox");
+    if (!lightbox) return;
+    if (event.target === lightbox) {
+        closeImageLightbox();
+    }
+});
+
+// -------- INITIALIZATION -------- //
+
+document.addEventListener("DOMContentLoaded", () => {
+    // default to "home" if nothing else is active
+    const activeSection = document.querySelector("section.active");
+    if (!activeSection) {
+        navigateTo("home");
+    }
+});
