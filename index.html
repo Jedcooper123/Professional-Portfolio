@@ -38,9 +38,9 @@
                     <p class="hero-subline">Cybersecurity • Network Security • Threat Analysis</p>
                     <p>
                         I just finished my Computer Information Systems degree with a cybersecurity concentration 
-                        at Appalachian State University. Most of my projects i have included are hands-on labs where I analyzed 
-                        network traffic, conducted password cracking techniques, and built small lab environments to see how attacks 
-                        actually play out in a real world enviornment.
+                        at Appalachian State University. Most of my projects I have included are hands-on labs where I analyzed 
+                        network traffic, ran password cracking techniques, and built small lab environments to see how attacks 
+                        actually play out in a real world environment.
                     </p>
 
                     <div class="hero-buttons">
@@ -212,7 +212,7 @@
                     <h3>Screenshots &amp; Analysis</h3>
                     <div class="screenshot-grid">
                         <div class="screenshot-item">
-                            <img src="screenshots/network-1.jpg" alt="Fake SSL Certificate in Wireshark" onclick="window.open(this.src)">
+                            <img src="screenshots/network-1.jpg" alt="Fake SSL Certificate in Wireshark" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Fake SSL Certificate</strong><br>
                                 TLS traffic with a suspicious certificate and odd commonName values pointing toward
@@ -221,7 +221,7 @@
                         </div>
                         
                         <div class="screenshot-item">
-                            <img src="screenshots/network-2.jpg" alt="VirusTotal malware confirmation" onclick="window.open(this.src)">
+                            <img src="screenshots/network-2.jpg" alt="VirusTotal malware confirmation" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>VirusTotal Confirmation</strong><br>
                                 File hash submitted to VirusTotal showing that many vendors flag <code>cursor.png</code>
@@ -230,7 +230,7 @@
                         </div>
                         
                         <div class="screenshot-item">
-                            <img src="screenshots/network-3.jpg" alt="Email credentials exfiltration in HTTP stream" onclick="window.open(this.src)">
+                            <img src="screenshots/network-3.jpg" alt="Email credentials exfiltration in HTTP stream" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Email Credentials Exfiltration</strong><br>
                                 HTTP stream showing Outlook credentials being sent in clear text from the infected client
@@ -239,7 +239,7 @@
                         </div>
                         
                         <div class="screenshot-item">
-                            <img src="screenshots/network-4.jpg" alt="Second infected client host information" onclick="window.open(this.src)">
+                            <img src="screenshots/network-4.jpg" alt="Second infected client host information" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Second Infected Client</strong><br>
                                 IP configuration output used to confirm the hostname and IP of the second compromised machine.
@@ -247,7 +247,7 @@
                         </div>
                         
                         <div class="screenshot-item">
-                            <img src="screenshots/network-5.jpg" alt="Primary infected client network details" onclick="window.open(this.src)">
+                            <img src="screenshots/network-5.jpg" alt="Primary infected client network details" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Primary Infected Client</strong><br>
                                 Network details of the first compromised workstation, giving context for filters and follow-up analysis.
@@ -255,7 +255,7 @@
                         </div>
                         
                         <div class="screenshot-item">
-                            <img src="screenshots/network-6.jpg" alt="Exporting HTTP objects in Wireshark" onclick="window.open(this.src)">
+                            <img src="screenshots/network-6.jpg" alt="Exporting HTTP objects in Wireshark" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Malware Extraction</strong><br>
                                 Using Wireshark’s <em>Export HTTP Objects</em> feature to pull out suspicious files for offline analysis.
@@ -313,7 +313,7 @@
                     <h3>Screenshots &amp; Analysis</h3>
                     <div class="screenshot-grid">
                         <div class="screenshot-item">
-                            <img src="screenshots/passwords-1.jpg" alt="Wireshark NTLMv2 response capture" onclick="window.open(this.src)">
+                            <img src="screenshots/passwords-1.jpg" alt="Wireshark NTLMv2 response capture" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Capturing NTLMv2 Response</strong><br>
                                 Filtering on <code>ntlmssp</code> to find the NTLMv2 authentication packet and copying
@@ -322,7 +322,7 @@
                         </div>
 
                         <div class="screenshot-item">
-                            <img src="screenshots/passwords-2.jpg" alt="Wireshark NTLM server challenge value" onclick="window.open(this.src)">
+                            <img src="screenshots/passwords-2.jpg" alt="Wireshark NTLM server challenge value" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Server Challenge Value</strong><br>
                                 From the server challenge packet, I grab the 8-byte challenge that, combined with the
@@ -331,7 +331,7 @@
                         </div>
 
                         <div class="screenshot-item">
-                            <img src="screenshots/passwords-3.jpg" alt="Building hashes.txt in Notepad" onclick="window.open(this.src)">
+                            <img src="screenshots/passwords-3.jpg" alt="Building hashes.txt in Notepad" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Building hashes.txt</strong><br>
                                 On the Windows side, I paste together username, domain, challenge, and response into
@@ -340,7 +340,7 @@
                         </div>
 
                         <div class="screenshot-item">
-                            <img src="screenshots/passwords-4.jpg" alt="Serving hashes.txt to Kali over HTTP" onclick="window.open(this.src)">
+                            <img src="screenshots/passwords-4.jpg" alt="Serving hashes.txt to Kali over HTTP" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Moving Hashes to Kali</strong><br>
                                 Browsing to the Windows host from Kali and downloading <code>hashes.txt</code> over HTTP,
@@ -349,7 +349,7 @@
                         </div>
 
                         <div class="screenshot-item">
-                            <img src="screenshots/passwords-5.jpg" alt="Starting Hashcat with rockyou wordlist" onclick="window.open(this.src)">
+                            <img src="screenshots/passwords-5.jpg" alt="Starting Hashcat with rockyou wordlist" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Hashcat Attack Command</strong><br>
                                 Running Hashcat in NTLMv2 mode (<code>-m 5600</code>) against <code>hashes.txt</code> using
@@ -358,7 +358,7 @@
                         </div>
 
                         <div class="screenshot-item">
-                            <img src="screenshots/passwords-6.jpg" alt="Hashcat cracking progress and stats" onclick="window.open(this.src)">
+                            <img src="screenshots/passwords-6.jpg" alt="Hashcat cracking progress and stats" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Cracking Progress &amp; Stats</strong><br>
                                 Hashcat status output, showing speed, progress, and keyspace.
@@ -367,7 +367,7 @@
                         </div>
 
                         <div class="screenshot-item">
-                            <img src="screenshots/passwords-7.jpg" alt="Additional NTLM authentication details in Wireshark" onclick="window.open(this.src)">
+                            <img src="screenshots/passwords-7.jpg" alt="Additional NTLM authentication details in Wireshark" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Authentication Context</strong><br>
                                 NTLM details in Wireshark that tie each captured hash back to a real user, domain,
@@ -402,7 +402,7 @@
             <div class="info-card">
                 <h3>Short-Term Goals</h3>
                 <p>
-                    Short term, I want to be apart of something where I can keep learning every day and get more real incident experience.
+                    Short term, I want to be a part of something where I can keep learning every day and get more real incident experience.
                     I'm working toward certifications like Security+ and I want to keep building home labs and projects that
                     line up with what I’ll see on the job.
                 </p>
@@ -448,6 +448,14 @@
     <footer>
         <p>&copy; 2025 Jed Cooper. All rights reserved.</p>
     </footer>
+
+    <!-- IMAGE LIGHTBOX (same-page zoom) -->
+    <div class="image-lightbox" id="image-lightbox">
+      <div class="image-lightbox-inner">
+        <span class="image-lightbox-close" onclick="closeImageLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="Expanded screenshot">
+      </div>
+    </div>
 
     <!-- JS -->
     <script src="js/main.js" defer></script>
