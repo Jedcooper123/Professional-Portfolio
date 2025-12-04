@@ -153,17 +153,6 @@ p {
 
 /* ---------- HERO SECTION ---------- */
 
-.hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
-    gap: 2.75rem;
-    align-items: center;
-}
-
-.hero-left {
-    text-align: left;
-}
-
 .hero-tag {
     display: inline-flex;
     align-items: center;
@@ -286,25 +275,36 @@ p {
 
 /* ---------- HERO IMAGE: SQUARE CARD ---------- */
 
+.hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+    gap: 2.75rem;
+    align-items: stretch;
+}
+
+.hero-left {
+    text-align: left;
+}
+
+/* right side should feel like it fills its half */
 .hero-right {
-    text-align: center;
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero-photo-shell {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 1 / 1;             /* perfect square */
+    margin: 0 auto;
     padding: 0.45rem;
     border-radius: 20px;
     background: radial-gradient(circle at 0 0, #1d4ed8, #020617 55%);
     box-shadow:
         0 25px 60px rgba(15,23,42,0.95),
         0 0 0 1px rgba(148,163,184,0.4);
-    width: 260px;
-    height: 260px;
-    margin: 0 auto;
 }
 
 .hero-photo-shell::before {
@@ -319,13 +319,14 @@ p {
 }
 
 .hero-photo-shell img {
-    width: 240px;
-    height: 240px;
+    width: 100%;
+    height: 100%;
     border-radius: 16px;
-    object-fit: cover;
+    object-fit: cover;       /* fills nicely without stretching */
     display: block;
     border: 4px solid #020617;
 }
+
 
 .hero-caption {
     margin-top: 0.8rem;
@@ -537,8 +538,10 @@ p {
 .screenshot-item img {
     display: block;
     width: 100%;
+    height: 220px;          /* same height for all screenshots */
+    object-fit: cover;      /* crops instead of stretching */
     border-bottom: 1px solid rgba(31,41,55,0.9);
-    cursor: pointer; /* clicking will show zoomed-in version in same page */
+    cursor: pointer;
     transition: transform 0.2s ease-out;
 }
 
