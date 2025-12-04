@@ -188,7 +188,7 @@
             </div>
         </section>
 
-        <!-- MODAL 1: NETWORK TRAFFIC ANALYSIS -->
+                <!-- MODAL 1: NETWORK TRAFFIC ANALYSIS -->
         <div id="modal1" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -198,74 +198,103 @@
                 <div class="modal-body">
                     <h3>Project Overview</h3>
                     <p>
-                        This project involved a forensic investigation of the "Catbomber" malware incident.
-                        Using Wireshark, I analyzed network traffic to identify compromised systems, spot
-                        command-and-control traffic, and pull out evidence of the attack.
+                        In this lab I worked through the “Catbomber” scenario, which simulates a malware infection
+                        inside a company network. I used Wireshark and a PCAP file to figure out which machines
+                        were infected, what data was stolen, and which files were actually malicious.
                     </p>
-                    
-                    <h3>Key Findings</h3>
-                    <p>• Identified two infected clients (10.5.28.229 and 10.5.28.8) through HTTP traffic filtering and TLS handshake analysis.</p>
-                    <p>• Pulled out exfiltrated credentials including usernames, hostnames, email addresses, and passwords from captured packets.</p>
-                    <p>• Verified malicious files as Indicators of Compromise using VirusTotal.</p>
-                    <p>• Detected fake SSL certificates used in command-and-control communications.</p>
-                    
+
+                    <h3>How I Approached It</h3>
+                    <p>
+                        • Started by opening the PCAP and looking at high-level HTTP and TLS traffic.<br>
+                        • Followed specific TCP streams to see what data was being sent out from clients.<br>
+                        • Used IP configuration data in the packets to tie activity back to hostnames and users.<br>
+                        • Exported suspicious files from the capture, hashed them, and checked them on VirusTotal.<br>
+                        • Looked at post-infection TLS traffic and certificates to spot command-and-control behavior.
+                    </p>
+
                     <h3>Screenshots &amp; Analysis</h3>
                     <div class="screenshot-grid">
+                        <!-- Primary infected host: Cat-Bomb-W7-PC -->
                         <div class="screenshot-item">
-                            <img src="screenshots/network-1.jpg" alt="Fake SSL Certificate in Wireshark" onclick="openImageLightbox(this.src)">
-                            <div class="screenshot-caption">
-                                <strong>Fake SSL Certificate</strong><br>
-                                TLS traffic with a suspicious certificate and odd commonName values pointing toward
-                                command-and-control traffic instead of normal web use.
-                            </div>
-                        </div>
-                        
-                        <div class="screenshot-item">
-                            <img src="screenshots/network-2.jpg" alt="VirusTotal malware confirmation" onclick="openImageLightbox(this.src)">
-                            <div class="screenshot-caption">
-                                <strong>VirusTotal Confirmation</strong><br>
-                                File hash submitted to VirusTotal showing that many vendors flag <code>cursor.png</code>
-                                as malicious, confirming it as an Indicator of Compromise.
-                            </div>
-                        </div>
-                        
-                        <div class="screenshot-item">
-                            <img src="screenshots/network-3.jpg" alt="Email credentials exfiltration in HTTP stream" onclick="openImageLightbox(this.src)">
-                            <div class="screenshot-caption">
-                                <strong>Email Credentials Exfiltration</strong><br>
-                                HTTP stream showing Outlook credentials being sent in clear text from the infected client
-                                to the attacker’s server.
-                            </div>
-                        </div>
-                        
-                        <div class="screenshot-item">
-                            <img src="screenshots/network-4.jpg" alt="Second infected client host information" onclick="openImageLightbox(this.src)">
-                            <div class="screenshot-caption">
-                                <strong>Second Infected Client</strong><br>
-                                IP configuration output used to confirm the hostname and IP of the second compromised machine.
-                            </div>
-                        </div>
-                        
-                        <div class="screenshot-item">
-                            <img src="screenshots/network-5.jpg" alt="Primary infected client network details" onclick="openImageLightbox(this.src)">
+                            <img src="screenshots/network-4.jpg" alt="IP configuration for primary infected host Cat-Bomb-W7-PC" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Primary Infected Client</strong><br>
-                                Network details of the first compromised workstation, giving context for filters and follow-up analysis.
+                                Following one of the HTTP streams shows a system report that includes the hostname
+                                <code>Cat-Bomb-W7-PC</code> with IP address <code>10.5.28.229</code>. This becomes
+                                our first confirmed infected workstation.
                             </div>
                         </div>
-                        
+
+                        <!-- Second infected host: Catbomber-DC -->
                         <div class="screenshot-item">
-                            <img src="screenshots/network-6.jpg" alt="Exporting HTTP objects in Wireshark" onclick="openImageLightbox(this.src)">
+                            <img src="screenshots/network-3.jpg" alt="IP configuration for second infected host Catbomber-DC" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
-                                <strong>Malware Extraction</strong><br>
-                                Using Wireshark’s <em>Export HTTP Objects</em> feature to pull out suspicious files for offline analysis.
+                                <strong>Second Infected Client</strong><br>
+                                Another HTTP stream shows a different host, <code>Catbomber-DC</code>, with IP
+                                <code>10.5.28.8</code>. The usernames match the first machine, which suggests the same
+                                user is compromised on multiple devices.
+                            </div>
+                        </div>
+
+                        <!-- Email/password exfil -->
+                        <div class="screenshot-item">
+                            <img src="screenshots/network-2.jpg" alt="HTTP stream showing stolen Outlook credentials" onclick="openImageLightbox(this.src)">
+                            <div class="screenshot-caption">
+                                <strong>Stolen Email Credentials</strong><br>
+                                By following another HTTP stream from <code>10.5.28.229</code>, I see the user’s Outlook
+                                email address and password being sent to the attacker over clear-text HTTP. This confirms
+                                that credentials are being exfiltrated, not just system info.
+                            </div>
+                        </div>
+
+                        <!-- Export cursor.png from HTTP objects -->
+                        <div class="screenshot-item">
+                            <img src="screenshots/network-5.jpg" alt="Exporting cursor.png from Wireshark HTTP object list" onclick="openImageLightbox(this.src)">
+                            <div class="screenshot-caption">
+                                <strong>Pulling Malware from the PCAP</strong><br>
+                                Using <em>File → Export Objects → HTTP</em> in Wireshark, I extract suspicious files like
+                                <code>cursor.png</code> and save them into a quarantine folder so they can be analyzed
+                                without touching the live network.
+                            </div>
+                        </div>
+
+                        <!-- Hashing + VirusTotal -->
+                        <div class="screenshot-item">
+                            <img src="screenshots/network-1.jpg" alt="PowerShell hash and VirusTotal scan result" onclick="openImageLightbox(this.src)">
+                            <div class="screenshot-caption">
+                                <strong>Hashing &amp; Checking the File</strong><br>
+                                In PowerShell I generate a file hash for the extracted PNG and submit it to VirusTotal.
+                                This lets me check quickly whether security vendors have already seen this file in the wild.
+                            </div>
+                        </div>
+
+                        <!-- VirusTotal main detection screen -->
+                        <div class="screenshot-item">
+                            <img src="screenshots/network-2.jpg" alt="VirusTotal result showing 61 of 72 vendors flagging cursor.png as malicious" onclick="openImageLightbox(this.src)">
+                            <div class="screenshot-caption">
+                                <strong>Confirmed Indicators of Compromise</strong><br>
+                                VirusTotal shows that 61 out of 72 vendors flag <code>cursor.png</code> as a trojan,
+                                which confirms it as a strong Indicator of Compromise for this environment.
+                            </div>
+                        </div>
+
+                        <!-- Suspicious TLS certificate -->
+                        <div class="screenshot-item">
+                            <img src="screenshots/network-6.jpg" alt="TLS certificate with commonName example.com" onclick="openImageLightbox(this.src)">
+                            <div class="screenshot-caption">
+                                <strong>Suspicious Post-Infection Traffic</strong><br>
+                                Looking at TLS sessions on ports 443, 447, and 449, I find a certificate whose
+                                <code>commonName</code> is simply <code>example.com</code>. Combined with the other
+                                evidence, this points to malicious command-and-control traffic rather than normal web use.
                             </div>
                         </div>
                     </div>
-                    
-                    <h3>Technologies Used</h3>
+
+                    <h3>Key Takeaways</h3>
                     <p>
-                        Wireshark • PCAP Analysis • Network Security Monitoring • HTTP/TLS Analysis • VirusTotal • PowerShell
+                        By walking through the PCAP step by step, I was able to identify two infected hosts, see exactly
+                        what data left the network, and confirm which files were malware. This is the kind of workflow
+                        you’d use in a real incident: use traffic to rebuild what happened instead of guessing.
                     </p>
                 </div>
             </div>
@@ -281,20 +310,21 @@
                 <div class="modal-body">
                     <h3>Project Overview</h3>
                     <p>
-                        In this lab I built a small intrusion detection setup using Snort on pfSense and a Kali web
-                        server. The goal was to see what real alerts look like in the firewall, write a custom rule
-                        that keys off my own traffic, and then use a pre-built rule set to catch a PNG file that
-                        secretly contains a Windows executable.
+                        This lab focuses on Snort running on a pfSense firewall. I set up custom and pre-built rules,
+                        watched alerts fire in real time, and then used packet captures and Wireshark to prove what
+                        the alerts were actually seeing on the wire.
                     </p>
 
-                    <h3>Lab Workflow</h3>
+                    <h3>How I Approached It</h3>
                     <p>
-                        • Enabled Snort on the LAN interface and added a <em>custom.rules</em> file for testing.<br>
-                        • Wrote a rule to alert on any traffic that contains my name “Jed” going to/from the Windows server.<br>
-                        • Stood up an Apache web server on Kali and hosted the suspicious <code>cursor.png</code> file.<br>
-                        • Captured HTTP traffic with pfSense and Wireshark while the Windows host downloaded the file.<br>
-                        • Used an Emerging Threats rule to flag the PNG as a network trojan and confirmed the payload
-                          in Wireshark by looking at the raw TCP stream.
+                        • Enabled Snort on the LAN interface of pfSense with a <em>custom.rules</em> file for testing.<br>
+                        • Wrote a simple rule that alerts any time traffic includes my name “Jed” going to or from
+                          the Windows server, just to prove rules are working.<br>
+                        • Hosted a suspicious PNG file on a Kali Apache server and had the Windows client download it.<br>
+                        • Captured traffic on pfSense, pulled it into Wireshark, and used an Emerging Threats rule set
+                          to detect the PNG that secretly contains an EXE.<br>
+                        • Verified inside Wireshark that the “image” payload actually starts with an <code>MZ</code>
+                          executable header.
                     </p>
 
                     <h3>Screenshots &amp; Analysis</h3>
@@ -303,47 +333,48 @@
                             <img src="screenshots/intrusion-2.jpg" alt="Snort custom rule definition in pfSense" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Custom Snort Rule</strong><br>
-                                Creating a rule in <code>custom.rules</code> that looks for the string “jed” in traffic
-                                and raises an alert with the message “Traffic about Jed going to or from Windows Server detected.”
-                                This is just to prove my rule is actually firing.
+                                Creating a test rule in <code>custom.rules</code> that looks for the string “jed” in any TCP
+                                traffic and raises a friendly alert. It’s a simple way to confirm Snort is inspecting the
+                                traffic I care about.
                             </div>
                         </div>
 
                         <div class="screenshot-item">
                             <img src="screenshots/intrusion-1.jpg" alt="Snort active log showing Jed rule alerts" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
-                                <strong>Custom Rule Alerting</strong><br>
-                                Snort’s Active Log in pfSense showing alerts generated by my custom rule whenever traffic
-                                containing “Jed” goes between 192.168.1.2 and the Windows server at 10.1.0.1.
+                                <strong>Rule Firing in the Log</strong><br>
+                                Snort’s Active Log shows alerts generated by that custom rule when traffic containing “Jed”
+                                passes between 192.168.1.2 and the Windows server at 10.1.0.1. This confirms that my rule is
+                                live and matching the expected flows.
                             </div>
                         </div>
 
                         <div class="screenshot-item">
                             <img src="screenshots/intrusion-4.jpg" alt="Starting Apache web server on Kali" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
-                                <strong>Apache Server on Kali</strong><br>
-                                Starting the Apache2 service on Kali so the Windows client can download
-                                <code>cursor.png</code> over HTTP. This simulates a user grabbing a file from a
-                                compromised web server.
+                                <strong>Hosting the Malicious File</strong><br>
+                                On Kali, I start Apache and host <code>cursor.png</code>. From the user’s point of view it’s
+                                just a download, but in the background Snort sees it as suspicious content moving through
+                                the firewall.
                             </div>
                         </div>
 
                         <div class="screenshot-item">
                             <img src="screenshots/intrusion-5.jpg" alt="Wireshark HTTP filter showing cursor.png transfer" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
-                                <strong>HTTP Download of cursor.png</strong><br>
-                                Filtering on HTTP in Wireshark to see the GET request for <code>/cursor.png</code>
-                                from the user at 192.168.1.2 to the Kali server (10.1.0.100) and the HTTP 200 OK response.
+                                <strong>HTTP Download in Wireshark</strong><br>
+                                Filtering in Wireshark to show the HTTP GET request for <code>/cursor.png</code> and the
+                                server’s 200 OK response. This ties the Snort alert to an actual file transfer.
                             </div>
                         </div>
 
                         <div class="screenshot-item">
-                            <img src="screenshots/intrusion-6.jpg" alt="pfSense packet capture output showing HTTPS traffic" onclick="openImageLightbox(this.src)">
+                            <img src="screenshots/intrusion-6.jpg" alt="pfSense packet capture output showing TCP session" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
-                                <strong>Packet Capture on pfSense</strong><br>
-                                Packet capture output from pfSense confirming the TCP flows between the internal host
-                                and the external IP. This provides raw evidence that can be pulled into Wireshark
-                                for deeper inspection.
+                                <strong>Packet Capture from pfSense</strong><br>
+                                Packet capture output confirms the TCP sessions between the Kali web server and the
+                                internal host. These packets are what Snort is analyzing when it decides to raise
+                                an alert.
                             </div>
                         </div>
 
@@ -351,41 +382,41 @@
                             <img src="screenshots/intrusion-7.jpg" alt="Snort alert for network trojan detection" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Network Trojan Detected</strong><br>
-                                Snort Active Log firing a high-priority alert from an Emerging Threats rule:
-                                “Content-Type image containing Portable Executable data.” This flags the PNG as a
-                                likely malware delivery file.
+                                An Emerging Threats rule fires with the message “Content-Type image containing Portable
+                                Executable data.” In other words, Snort has figured out that this “PNG” is actually
+                                carrying a Windows executable.
                             </div>
                         </div>
 
                         <div class="screenshot-item">
                             <img src="screenshots/intrusion-3.jpg" alt="Exporting objects in Wireshark" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
-                                <strong>Exporting the File from PCAP</strong><br>
-                                Using Wireshark’s <em>Export Objects</em> feature on the PCAP to pull out the
-                                suspicious file from the HTTP traffic so it can be analyzed or detonated in a sandbox.
+                                <strong>Exporting the Payload</strong><br>
+                                Using Wireshark’s <em>Export Objects</em> feature to pull the suspicious file out of the
+                                traffic so it can be handed off to a sandbox or malware analyst.
                             </div>
                         </div>
 
                         <div class="screenshot-item">
                             <img src="screenshots/intrusion-8.jpg" alt="Wireshark Follow TCP Stream showing PE header inside PNG" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
-                                <strong>PE File Hidden in PNG</strong><br>
-                                Following the TCP stream in Wireshark shows the HTTP 200 response advertising
-                                <code>Content-Type: image/png</code>, but the payload begins with the <code>MZ</code>
-                                header and PE sections—proof that this “image” actually contains a Windows executable.
+                                <strong>PE Header Hidden in a PNG</strong><br>
+                                Following the TCP stream shows the HTTP response claiming to be <code>image/png</code>,
+                                but the payload begins with the <code>MZ</code> header and PE sections. That’s a clear sign
+                                that the file is actually an executable wrapped in image clothing.
                             </div>
                         </div>
                     </div>
 
-                    <h3>Technologies Used</h3>
+                    <h3>Key Takeaways</h3>
                     <p>
-                        pfSense • Snort IDS/IPS • Custom Snort Rules • Emerging Threats Signatures • Kali Linux • Apache2 •
-                        Wireshark • PCAP Analysis
+                        This lab shows how IDS/IPS tools like Snort fit into a layered defense. Rules give you early
+                        warning, but the real value comes from validating those alerts with packet captures and
+                        understanding the story behind each event.
                     </p>
                 </div>
             </div>
         </div>
-
 
         <!-- MODAL 3: PASSWORD SECURITY -->
         <div id="modal3" class="modal">
@@ -397,17 +428,20 @@
                 <div class="modal-body">
                     <h3>Project Overview</h3>
                     <p>
-                        This project looks at how Windows NTLMv2 authentication works on the wire and why weak passwords
-                        are a bad idea. I captured NTLMv2 logons in Wireshark, exported the pieces I needed, and used
-                        Hashcat on Kali to try cracking them with a common wordlist.
+                        This project looks at how Windows NTLMv2 logins travel over the network and what happens if an
+                        attacker captures those logins. I used Wireshark to grab NTLMv2 authentication traffic, built a
+                        hash file in the format Hashcat expects, and then tried cracking it with a common password list.
                     </p>
 
-                    <h3>Workflow</h3>
+                    <h3>How I Approached It</h3>
                     <p>
-                        • Capture NTLMv2 logons over the network using Wireshark filters.<br>
-                        • Pull out the server challenge and NTLMv2 response from the authentication packets.<br>
-                        • Build a <code>hashes.txt</code> file in the format Hashcat expects and move it over to Kali.<br>
-                        • Run Hashcat (mode 5600) with the <code>rockyou.txt</code> wordlist to test password strength.
+                        • Captured NTLMv2 authentication traffic on the network using Wireshark filters.<br>
+                        • Pulled out the server challenge and NTLMv2 response fields from the packets.<br>
+                        • Built a <code>hashes.txt</code> file in the <code>user::domain:challenge:response</code> format that
+                          Hashcat needs.<br>
+                        • Moved the hash file over to Kali Linux and ran Hashcat (mode 5600) with the
+                          <code>rockyou.txt</code> wordlist.<br>
+                        • Reviewed the results to see whether any of the users were using weak, crackable passwords.
                     </p>
 
                     <h3>Screenshots &amp; Analysis</h3>
@@ -415,18 +449,19 @@
                         <div class="screenshot-item">
                             <img src="screenshots/passwords-1.jpg" alt="Wireshark NTLMv2 response capture" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
-                                <strong>Capturing NTLMv2 Response</strong><br>
-                                Filtering on <code>ntlmssp</code> to find the NTLMv2 authentication packet and copying
-                                the response and NTProofStr values from it.
+                                <strong>Finding the NTLMv2 Response</strong><br>
+                                Filtering on <code>ntlmssp</code> in Wireshark highlights the NTLMv2 authentication packet.
+                                From here I copy the NTLM response fields that will later be fed into Hashcat.
                             </div>
                         </div>
 
                         <div class="screenshot-item">
                             <img src="screenshots/passwords-2.jpg" alt="Wireshark NTLM server challenge value" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
-                                <strong>Server Challenge Value</strong><br>
-                                From the server challenge packet, I grab the 8-byte challenge that, combined with the
-                                response, becomes the input for Hashcat’s NTLMv2 mode.
+                                <strong>Server Challenge</strong><br>
+                                The server challenge packet provides the 8-byte random value that, combined with the user’s
+                                password and other fields, forms the NTLMv2 hash. Attackers need both pieces: the challenge
+                                and the response.
                             </div>
                         </div>
 
@@ -436,6 +471,7 @@
                                 <strong>Building hashes.txt</strong><br>
                                 On the Windows side, I paste together username, domain, challenge, and response into
                                 <code>user::domain:challenge:response</code> format and save it as <code>hashes.txt</code>.
+                                This is exactly what Hashcat expects when cracking NTLMv2 hashes.
                             </div>
                         </div>
 
@@ -443,8 +479,9 @@
                             <img src="screenshots/passwords-4.jpg" alt="Serving hashes.txt to Kali over HTTP" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Moving Hashes to Kali</strong><br>
-                                Browsing to the Windows host from Kali and downloading <code>hashes.txt</code> over HTTP,
-                                so all hash cracking happens offline.
+                                From Kali, I browse to the Windows system and download <code>hashes.txt</code> over HTTP.
+                                From this point on, all cracking happens offline so there are no account lockouts or logs
+                                on the domain controller.
                             </div>
                         </div>
 
@@ -452,39 +489,42 @@
                             <img src="screenshots/passwords-5.jpg" alt="Starting Hashcat with rockyou wordlist" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
                                 <strong>Hashcat Attack Command</strong><br>
-                                Running Hashcat in NTLMv2 mode (<code>-m 5600</code>) against <code>hashes.txt</code> using
-                                the <code>rockyou.txt</code> wordlist to simulate a basic offline attack.
+                                Running Hashcat in NTLMv2 mode (<code>-m 5600</code>) against <code>hashes.txt</code> with
+                                the <code>rockyou.txt</code> wordlist. This simulates what a basic attacker might do after
+                                stealing hashes from a network.
                             </div>
                         </div>
 
                         <div class="screenshot-item">
                             <img src="screenshots/passwords-6.jpg" alt="Hashcat cracking progress and stats" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
-                                <strong>Cracking Progress &amp; Stats</strong><br>
-                                Hashcat status output, showing speed, progress, and keyspace.
-                                Any weak passwords would show up here as recovered.
+                                <strong>Cracking Progress</strong><br>
+                                Hashcat status output shows speed, percentage complete, and how many hashes (if any)
+                                have been recovered. Weak passwords would show up here quickly.
                             </div>
                         </div>
 
                         <div class="screenshot-item">
                             <img src="screenshots/passwords-7.jpg" alt="Additional NTLM authentication details in Wireshark" onclick="openImageLightbox(this.src)">
                             <div class="screenshot-caption">
-                                <strong>Authentication Context</strong><br>
-                                NTLM details in Wireshark that tie each captured hash back to a real user, domain,
-                                and workstation on the network.
+                                <strong>Tying Hashes Back to Users</strong><br>
+                                Looking back at the NTLM details in Wireshark, I can match each hash to a real domain
+                                user and workstation. That’s important for reporting and for recommending which accounts
+                                need password resets.
                             </div>
                         </div>
                     </div>
 
                     <h3>Key Takeaways</h3>
                     <p>
-                        • NTLMv2 hashes can be captured by anyone with access to internal traffic.<br>
-                        • Once hashes are offline, attackers can try as many passwords as they want without lockouts.<br>
-                        • Long, unique passwords plus MFA make this kind of attack much harder to pull off.
+                        NTLMv2 hashes are not plain-text passwords, but once they’re captured, they can still be attacked
+                        offline. Long, unique passwords and multi-factor authentication make this kind of attack much
+                        harder, which is why those controls matter even on internal networks.
                     </p>
                 </div>
             </div>
         </div>
+
 
         <!-- CAREER -->
         <section id="career">
