@@ -6,6 +6,16 @@
     <title>Jed Cooper's Professional Portfolio</title>
 
     <style>
+        :root {
+            --bg-dark: #050816;
+            --bg-card: #0b1220;
+            --accent: #3b82f6;
+            --accent-soft: #1e40af;
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border-subtle: #111827;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,53 +23,57 @@
         }
 
         body {
-            font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             line-height: 1.7;
-            color: #333;
-            background: #f3f4f7;
+            color: var(--text-main);
+            background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
         }
 
         /* ---------------- HEADER ---------------- */
 
         nav {
-            background: linear-gradient(135deg, #1b263b 0%, #415a77 100%);
+            background: linear-gradient(135deg, #020617 0%, #111827 40%, #1e293b 100%);
             color: white;
-            padding: 1.2rem 0;
+            padding: 1rem 0.75rem;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.25);
-            border-bottom: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+            border-bottom: 1px solid rgba(148,163,184,0.35);
+            backdrop-filter: blur(16px);
         }
 
         nav .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         nav h1 {
-            font-size: 1.7rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
         }
 
-        /* Personality via link glow animations */
         nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            font-weight: 500;
-            padding: 0.3rem 0;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.25rem 0;
             transition: 0.3s ease;
             position: relative;
         }
@@ -71,12 +85,16 @@
             bottom: -4px;
             width: 0;
             height: 2px;
-            background: #82cfff;
-            transition: width 0.3s;
+            background: var(--accent);
+            transition: width 0.25s ease-out;
         }
 
         nav a:hover::after {
             width: 100%;
+        }
+
+        nav a:hover {
+            opacity: 0.9;
         }
 
         /* ---------------- GENERAL SECTIONS ---------------- */
@@ -84,17 +102,20 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2.5rem;
+            padding: 2.5rem 1.5rem 3rem;
         }
 
         section {
             display: none;
-            background: #fff;
-            border-radius: 12px;
-            padding: 3rem;
+            background: linear-gradient(145deg, #020617 0%, #020617 45%, #020617 100%);
+            border-radius: 18px;
+            padding: 3rem clamp(1.75rem, 3vw, 3rem);
             margin: 2rem 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow:
+                0 24px 60px rgba(0,0,0,0.9),
+                0 0 0 1px rgba(15,23,42,1);
             animation: fadeIn 0.5s;
+            border: 1px solid rgba(148,163,184,0.35);
         }
 
         section.active {
@@ -107,121 +128,328 @@
         }
 
         h2 {
-            color: #1b263b;
+            color: #e5e7eb;
             margin-bottom: 1.5rem;
-            font-size: 2.2rem;
-            border-bottom: 4px solid #4fa3ff;
-            padding-bottom: 0.5rem;
-            font-weight: 700;
+            font-size: 2.3rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border-bottom: 4px solid var(--accent);
+            padding-bottom: 0.75rem;
+            font-weight: 800;
         }
 
         h3 {
-            color: #415a77;
-            font-size: 1.4rem;
+            color: #e5e7eb;
+            font-size: 1.3rem;
             margin-top: 2rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
         }
 
         /* ---------------- HERO SECTION ---------------- */
 
         .hero {
-            text-align: center;
-            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
+            gap: 2.75rem;
+            align-items: center;
+        }
+
+        .hero-left {
+            text-align: left;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.4);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            margin-bottom: 1.4rem;
+            color: var(--text-muted);
+        }
+
+        .hero-tag::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34,197,94,0.3);
         }
 
         .hero h2 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             border: none;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            color: #1b263b;
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-subline {
+            font-size: 1.15rem;
+            color: #e5e7eb;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
         }
 
         .hero p {
-            font-size: 1.25rem;
-            color: #455a64;
-            margin-bottom: 1.2rem;
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            max-width: 26rem;
+        }
+
+        .hero-buttons {
+            margin-top: 1.6rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .cta-button {
-            display: inline-block;
-            background: #3d8bfd;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 20% 0%, #60a5fa 0%, #1d4ed8 45%, #020617 100%);
             color: white;
-            padding: 1rem 2.2rem;
-            border-radius: 8px;
+            padding: 0.9rem 2.3rem;
+            border-radius: 999px;
             text-decoration: none;
-            font-size: 1.15rem;
-            font-weight: 600;
-            transition: 0.3s ease;
-            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
             border: none;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow:
+                0 20px 40px rgba(37,99,235,0.55),
+                0 0 0 1px rgba(191,219,254,0.3);
+            transition:
+                transform 0.22s ease-out,
+                box-shadow 0.22s ease-out,
+                filter 0.22s ease-out;
+        }
+
+        .cta-button::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 0 0, rgba(248,250,252,0.35), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.25s ease-out;
         }
 
         .cta-button:hover {
-            background: #1e6cf0;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(30,108,240,0.3);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow:
+                0 30px 60px rgba(15,23,42,0.95),
+                0 0 0 1px rgba(219,234,254,0.6);
+            filter: saturate(1.15);
+        }
+
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+
+        .secondary-button {
+            padding: 0.9rem 2rem;
+            border-radius: 999px;
+            background: transparent;
+            border: 1px solid rgba(148,163,184,0.6);
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            cursor: pointer;
+            transition: 0.25s ease-out;
+        }
+
+        .secondary-button:hover {
+            border-color: var(--accent);
+            color: #e5e7eb;
+            background: rgba(15,23,42,0.9);
+        }
+
+        .hero-right {
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-photo-shell {
+            position: relative;
+            display: inline-block;
+            padding: 0.45rem;
+            border-radius: 999px;
+            background: radial-gradient(circle at 0 0, #1d4ed8, #020617 55%);
+            box-shadow:
+                0 25px 60px rgba(15,23,42,0.95),
+                0 0 0 1px rgba(148,163,184,0.4);
+        }
+
+        .hero-photo-shell::before {
+            content: "";
+            position: absolute;
+            inset: -12%;
+            border-radius: inherit;
+            background: conic-gradient(from 220deg, #38bdf8, #6366f1, #22c55e, #38bdf8);
+            opacity: 0.28;
+            filter: blur(12px);
+            z-index: -1;
+        }
+
+        .hero-photo-shell img {
+            width: 210px;
+            height: 210px;
+            border-radius: 999px;
+            object-fit: cover;
+            display: block;
+            border: 4px solid #020617;
+        }
+
+        .hero-caption {
+            margin-top: 0.8rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+        }
+
+        /* ---------------- TAGS / SKILLS ---------------- */
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-top: 0.75rem;
+        }
+
+        .skill-tag {
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.4);
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .career-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.4rem;
+        }
+
+        .contact-info a {
+            color: #93c5fd;
+            text-decoration: none;
+            border-bottom: 1px dotted rgba(147,197,253,0.4);
+        }
+
+        .contact-info a:hover {
+            border-bottom-style: solid;
         }
 
         /* ---------------- PROJECT CARDS ---------------- */
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-            gap: 2.2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
         }
 
         .project-card {
-            border-radius: 12px;
-            background: white;
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 18px;
+            background: radial-gradient(circle at top left, #111827 0%, #020617 60%);
+            transition:
+                transform 0.25s ease-out,
+                box-shadow 0.25s ease-out,
+                border-color 0.25s ease-out;
             cursor: pointer;
             overflow: hidden;
-            border: 1px solid #e1e1e1;
+            border: 1px solid rgba(31,41,55,0.9);
+            position: relative;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle at 0 0, rgba(59,130,246,0.2), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            pointer-events: none;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
         }
 
         .project-card:hover {
-            transform: translateY(-7px);
-            box-shadow: 0 10px 22px rgba(0,0,0,0.15);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 26px 60px rgba(0,0,0,0.9);
+            border-color: rgba(96,165,250,0.8);
         }
 
         .project-placeholder {
             width: 100%;
-            height: 200px;
+            height: 190px;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 1.4rem;
             color: white;
-            font-size: 1.35rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
         }
 
         .project-card h3 {
             margin: 0;
-            padding: 1.5rem;
-            font-size: 1.35rem;
-            background: #f8f9fa;
+            padding: 1.4rem 1.4rem 0.35rem;
+            font-size: 1.2rem;
+            background: transparent;
+            color: #e5e7eb;
         }
 
         .project-card p {
-            padding: 0 1.5rem 1.5rem;
-            color: #666;
+            padding: 0 1.4rem 0.8rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         .project-tags {
-            padding: 0 1.5rem 1.5rem;
+            padding: 0 1.4rem 1.4rem;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .project-tag {
-            background: #e6f2ff;
-            color: #1e6cf0;
-            padding: 0.4rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            background: rgba(15,23,42,0.9);
+            color: #bfdbfe;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 1px solid rgba(37,99,235,0.55);
         }
 
         /* ---------------- MODALS ---------------- */
@@ -231,7 +459,7 @@
             position: fixed;
             z-index: 1000;
             inset: 0;
-            background-color: rgba(0,0,0,0.75);
+            background-color: rgba(0,0,0,0.85);
             animation: fadeIn 0.3s;
         }
 
@@ -240,15 +468,17 @@
         }
 
         .modal-content {
-            background-color: white;
+            background: #020617;
             margin: 2% auto;
             padding: 0;
-            width: 90%;
+            width: 92%;
             max-width: 1200px;
-            border-radius: 12px;
+            border-radius: 18px;
             max-height: 90vh;
             overflow-y: auto;
             animation: slideIn 0.4s ease;
+            border: 1px solid rgba(148,163,184,0.5);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.95);
         }
 
         @keyframes slideIn {
@@ -256,35 +486,124 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
+        .modal-header {
+            padding: 1.25rem 1.75rem;
+            border-bottom: 1px solid rgba(31,41,55,0.9);
+            background: radial-gradient(circle at 0 0, rgba(37,99,235,0.4), transparent 55%);
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        .modal-header h2 {
+            border: none;
+            margin: 0;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .modal-body {
+            padding: 1.75rem;
+        }
+
         .close {
-            font-size: 2.2rem;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 700;
             float: right;
             cursor: pointer;
-            color: #999;
-            transition: color 0.3s;
+            color: #9ca3af;
+            transition: color 0.25s;
         }
 
         .close:hover {
-            color: #333;
+            color: #f9fafb;
+        }
+
+        .screenshot-grid {
+            margin-top: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .screenshot-item {
+            background: #020617;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(31,41,55,0.9);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.85);
+        }
+
+        .screenshot-item img {
+            display: block;
+            width: 100%;
+            border-bottom: 1px solid rgba(31,41,55,0.9);
+            cursor: zoom-in;
+            transition: transform 0.2s ease-out;
+        }
+
+        .screenshot-item img:hover {
+            transform: scale(1.02);
+        }
+
+        .screenshot-caption {
+            padding: 0.8rem 0.9rem 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .screenshot-caption strong {
+            color: #e5e7eb;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.78rem;
         }
 
         /* ---------------- FOOTER ---------------- */
 
         footer {
-            background: #1b263b;
-            color: white;
+            background: #020617;
+            color: #6b7280;
             text-align: center;
-            padding: 2.5rem;
-            margin-top: 3rem;
+            padding: 2rem;
+            margin-top: 2rem;
             font-weight: 500;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            border-top: 1px solid rgba(31,41,55,0.9);
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: left;
+            }
+            .hero-right {
+                order: -1;
+                margin-bottom: 1.5rem;
+            }
         }
 
         @media (max-width: 768px) {
-            nav ul { gap: 1rem; }
-            .hero h2 { font-size: 2.2rem; }
-            section { padding: 2rem 1.5rem; }
+            nav ul {
+                gap: 0.9rem;
+            }
+            section {
+                padding: 2.2rem 1.4rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav .container {
+                flex-direction: column;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+            nav h1 {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -293,7 +612,7 @@
 
     <nav>
         <div class="container">
-            <h1>Jed Cooper's Professional Portfolio</h1>
+            <h1>JED COOPER / CYBERSECURITY</h1>
             <ul>
                 <li><a href="#" data-page="home">Home</a></li>
                 <li><a href="#" data-page="about">About</a></li>
@@ -304,15 +623,28 @@
         </div>
     </nav>
 
-
     <div class="container">
         <section id="home" class="active">
             <div class="hero">
-                <img src="https://i.imgur.com/placeholder.jpg" alt="Jed Cooper" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; margin-bottom: 2rem; border: 5px solid #3498db;">
-                <h2>Jed Cooper</h2>
-                <p style="font-size: 1.3rem; color: #2c3e50; font-weight: 500;">Cybersecurity Professional | Network Security | Threat Analysis</p>
-                <p>Appalachian State University Graduate specializing in Cybersecurity</p>
-                <button class="cta-button" onclick="navigateTo('projects')">View My Work</button>
+                <div class="hero-left">
+                    <div class="hero-tag">Blue-team driven / attacker aware</div>
+                    <h2>Jed Cooper</h2>
+                    <p class="hero-subline">Cybersecurity • Network Security • Threat Analysis</p>
+                    <p>Appalachian State CIS graduate focused on breaking down network traffic, spotting weak passwords, and building practical defenses that actually stand up to attackers.</p>
+
+                    <div class="hero-buttons">
+                        <button class="cta-button" onclick="navigateTo('projects')">View My Work</button>
+                        <button class="secondary-button" onclick="navigateTo('about')">About & Skills</button>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <div class="hero-photo-shell">
+                        <!-- Put your real image file in the same folder & change the src below, e.g. src="jed-headshot.jpg" -->
+                        <img src="jed-headshot.jpg" alt="Jed Cooper headshot">
+                    </div>
+                    <div class="hero-caption">Shot on campus • ready for the SOC</div>
+                </div>
             </div>
         </section>
 
@@ -321,47 +653,49 @@
             <p>Hello! I'm Jed Cooper, a recent graduate from Appalachian State University with a Bachelor of Science in Business Administration, majoring in Computer Information Systems with a concentration in Cybersecurity. I'm passionate about network security, threat detection, and protecting digital assets through hands-on technical solutions.</p>
             
             <h3>Education</h3>
-            <p><strong>Appalachian State University</strong> - Boone, NC<br>
+            <p><strong>Appalachian State University</strong> — Boone, NC<br>
             Bachelor of Science in Business Administration | December 2025<br>
             Major: Computer Information Systems | Concentration: Cybersecurity<br>
             Cumulative GPA: 3.37</p>
             
             <h3>Experience</h3>
-            <p><strong>Network Technician Assistant (Internship)</strong> - Geeks at Work<br>
+            <p><strong>Network Technician Assistant (Internship)</strong> — Geeks at Work<br>
             October 2024 – July 2025</p>
             <p>Provided hands-on technical support for in-store operations including troubleshooting and repairing PCs, performing data transfers, and resolving hardware/software issues. Assisted in installing, configuring, and maintaining networking equipment for various businesses including security cameras, PCs, and Starlink Internet. Gained valuable experience in both onsite technical support and network infrastructure implementation.</p>
             
             <h3>Skills & Technologies</h3>
             <div class="skills-list">
-                <span class="skill-tag">Wireshark & Traffic Analysis</span>
+                <span class="skill-tag">Wireshark &amp; Traffic Analysis</span>
                 <span class="skill-tag">Microsoft Azure</span>
                 <span class="skill-tag">TCP/IP, DNS, DHCP, VPN</span>
                 <span class="skill-tag">Linux Environments</span>
                 <span class="skill-tag">Burp Suite</span>
                 <span class="skill-tag">Network Troubleshooting</span>
-                <span class="skill-tag">Python Programming</span>
-                <span class="skill-tag">SQL & Database Management</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">SQL &amp; Databases</span>
                 <span class="skill-tag">Penetration Testing</span>
                 <span class="skill-tag">Snort IDS/IPS</span>
                 <span class="skill-tag">pfSense Firewall</span>
-                <span class="skill-tag">Excel - MOS Certified</span>
+                <span class="skill-tag">Excel — MOS Certified</span>
             </div>
             
-            <h3>Organizations & Involvement</h3>
-            <p><strong>National Cyber League (NCL)</strong> - 2024-2025<br>
+            <h3>Organizations &amp; Involvement</h3>
+            <p><strong>National Cyber League (NCL)</strong> — 2024–2025<br>
             Actively participated in practice gyms and team exercises relating to network traffic analysis, open-source intelligence, web application security, and password cracking.</p>
             
-            <p><strong>Appalachian Information Technology Professionals (AppITP)</strong> - 2023-Present<br>
+            <p><strong>Appalachian Information Technology Professionals (AppITP)</strong> — 2023–Present<br>
             Attending speaker meetings and networking with peers while learning professional expectations within the cybersecurity field.</p>
         </section>
 
         <section id="projects">
             <h2>My Projects</h2>
-            <p>Click on any project to see detailed screenshots and analysis</p>
+            <p>Click on any project card to dive into screenshots and what I actually did in each lab.</p>
             
             <div class="projects-grid">
                 <div class="project-card" onclick="openModal('modal1')">
-                    <div class="project-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">Network Traffic Analysis</div>
+                    <div class="project-placeholder" style="background: linear-gradient(135deg, #1f2937 0%, #111827 60%, #1d4ed8 100%);">
+                        Network Traffic Analysis
+                    </div>
                     <h3>Network Traffic Analysis Using Wireshark</h3>
                     <p>Forensic investigation of the "Catbomber" malware incident using packet-level analysis to identify compromised systems and exfiltrated data.</p>
                     <div class="project-tags">
@@ -373,9 +707,11 @@
                 </div>
 
                 <div class="project-card" onclick="openModal('modal2')">
-                    <div class="project-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">Intrusion Detection</div>
-                    <h3>Intrusion Detection & Prevention System</h3>
-                    <p>Deployed Snort IDS/IPS on pfSense firewall to create multi-layered defense-in-depth security architecture with custom detection rules.</p>
+                    <div class="project-placeholder" style="background: linear-gradient(135deg, #020617 0%, #1e293b 45%, #3b82f6 100%);">
+                        Intrusion Detection
+                    </div>
+                    <h3>Intrusion Detection &amp; Prevention System</h3>
+                    <p>Deployed Snort IDS/IPS on a pfSense firewall to build a layered defense-in-depth lab with custom rules and blocked attack traffic.</p>
                     <div class="project-tags">
                         <span class="project-tag">Snort IDS/IPS</span>
                         <span class="project-tag">pfSense</span>
@@ -385,9 +721,11 @@
                 </div>
 
                 <div class="project-card" onclick="openModal('modal3')">
-                    <div class="project-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">Password Security</div>
-                    <h3>Password Authentication & Hash Cracking</h3>
-                    <p>Analyzed Windows authentication protocols and demonstrated password vulnerabilities through network interception and hash cracking techniques.</p>
+                    <div class="project-placeholder" style="background: linear-gradient(135deg, #020617 0%, #111827 45%, #38bdf8 100%);">
+                        Password Security
+                    </div>
+                    <h3>Password Authentication &amp; Hash Cracking</h3>
+                    <p>Analyzed Windows NTLM authentication, captured hashes over the network, and used Hashcat to demonstrate how weak passwords fall quickly.</p>
                     <div class="project-tags">
                         <span class="project-tag">Hashcat</span>
                         <span class="project-tag">NTLMv2</span>
@@ -410,41 +748,41 @@
                     <p>This project involved conducting a comprehensive forensic investigation of the "Catbomber" malware incident. Using Wireshark, I analyzed network traffic to identify compromised systems, trace malware communication patterns, and extract critical evidence of the attack.</p>
                     
                     <h3>Key Findings</h3>
-                    <p>• Identified two infected clients (10.5.28.229 and 10.5.28.8) through HTTP traffic filtering and TLS handshake analysis</p>
-                    <p>• Extracted exfiltrated credentials including usernames, hostnames, email addresses, and passwords from captured packets</p>
-                    <p>• Verified malicious files as Indicators of Compromise using VirusTotal</p>
-                    <p>• Detected fake SSL certificates used in command-and-control communications</p>
+                    <p>• Identified two infected clients (10.5.28.229 and 10.5.28.8) through HTTP traffic filtering and TLS handshake analysis.</p>
+                    <p>• Extracted exfiltrated credentials including usernames, hostnames, email addresses, and passwords from captured packets.</p>
+                    <p>• Verified malicious files as Indicators of Compromise using VirusTotal.</p>
+                    <p>• Detected fake SSL certificates used in command-and-control communications.</p>
                     
-                    <h3>Screenshots & Analysis</h3>
+                    <h3>Screenshots &amp; Analysis</h3>
                     <div class="screenshot-grid">
                         <div class="screenshot-item">
                             <img src="screenshots/network-1.jpg" alt="Fake SSL Certificate" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>Fake SSL Certificate:</strong> Post-infection TLS traffic analysis revealing fraudulent certificate with commonName "example.com" used for command-and-control communication over TCP ports 443, 447, and 449.</div>
+                            <div class="screenshot-caption"><strong>Fake SSL Certificate</strong><br>Post-infection TLS traffic analysis revealing a fraudulent certificate with a generic commonName used for command-and-control communication over TCP ports 443, 447, and 449.</div>
                         </div>
                         
                         <div class="screenshot-item">
                             <img src="screenshots/network-2.jpg" alt="VirusTotal Malware Confirmation" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>VirusTotal Confirmation:</strong> File hash uploaded to VirusTotal confirming 61/72 security vendors flagged cursor.png as malicious trojan (Emotet/ERPH). Verified as Indicator of Compromise.</div>
+                            <div class="screenshot-caption"><strong>VirusTotal Confirmation</strong><br>File hash uploaded to VirusTotal confirming dozens of vendors flag <code>cursor.png</code> as a trojan. This hash becomes a clear Indicator of Compromise.</div>
                         </div>
                         
                         <div class="screenshot-item">
                             <img src="screenshots/network-3.jpg" alt="Email Credentials Exfiltration" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>Email Credentials Exfiltration:</strong> HTTP stream showing captured Outlook passwords and email credentials (phillip.ghent@...) being transmitted by infected client to attacker's server.</div>
+                            <div class="screenshot-caption"><strong>Email Credentials Exfiltration</strong><br>HTTP stream showing captured Outlook email credentials being transmitted by the infected client to the attacker’s server in clear text.</div>
                         </div>
                         
                         <div class="screenshot-item">
                             <img src="screenshots/network-4.jpg" alt="Second Infected Client" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>Second Infected Client (Catbomber-DC):</strong> Windows IP configuration revealing second compromised system on the network with hostname "Catbomber-DC" and IP address 10.5.28.8.</div>
+                            <div class="screenshot-caption"><strong>Second Infected Client</strong><br>Windows IP configuration for the second compromised system on the network, confirming hostname and IP information for scoping the incident.</div>
                         </div>
                         
                         <div class="screenshot-item">
                             <img src="screenshots/network-5.jpg" alt="Primary Infected Client" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>Primary Infected Client Discovery:</strong> HTTP traffic revealing hostname "Cat-Bomb-W7-PC" with IP address 10.5.28.229 (Preferred) and network configuration details of the primary compromised system.</div>
+                            <div class="screenshot-caption"><strong>Primary Infected Client</strong><br>Network details of the primary compromised workstation, used to pivot into more targeted traffic filtering in Wireshark.</div>
                         </div>
                         
                         <div class="screenshot-item">
                             <img src="screenshots/network-6.jpg" alt="Malware File Extraction" onclick="window.open(this.src)">
-                            <div class="screenshot-caption"><strong>Malware Extraction Process:</strong> Using Wireshark's Export HTTP Objects feature to extract suspicious files (cursor.png, imgpaper.png) from network traffic for forensic analysis and hash verification.</div>
+                            <div class="screenshot-caption"><strong>Malware Extraction</strong><br>Using Wireshark’s “Export HTTP Objects” feature to extract suspicious files for offline analysis and hash verification.</div>
                         </div>
                     </div>
                     
@@ -459,23 +797,73 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="close" onclick="closeModal('modal2')">&times;</span>
-                    <h2>Intrusion Detection & Prevention System</h2>
+                    <h2>Intrusion Detection &amp; Prevention System</h2>
                 </div>
                 <div class="modal-body">
-                    <p>Screenshots coming soon...</p>
+                    <p>Screenshots coming soon. This lab walks through deploying Snort on pfSense, tuning rules, and validating blocked traffic for a small Windows network.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Modal 3: Password Security (placeholder for now) -->
+        <!-- Modal 3: Password Security -->
         <div id="modal3" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="close" onclick="closeModal('modal3')">&times;</span>
-                    <h2>Password Authentication & Hash Cracking</h2>
+                    <h2>Password Authentication &amp; Hash Cracking</h2>
                 </div>
                 <div class="modal-body">
-                    <p>Screenshots coming soon...</p>
+                    <h3>Project Overview</h3>
+                    <p>This project explores how Windows NTLMv2 authentication works on the wire and why weak passwords are dangerous. I captured NTLMv2 handshake traffic with Wireshark, exported the hashes, and used Hashcat on Kali Linux to attempt offline password cracking with a common wordlist.</p>
+
+                    <h3>Workflow</h3>
+                    <p>• Capture NTLMv2 logons over the network using Wireshark filters.<br>
+                       • Extract the server challenge and NTLMv2 response values from the authentication packets.<br>
+                       • Build a <code>hashes.txt</code> file in the correct Hashcat format and move it to Kali.<br>
+                       • Run Hashcat (mode 5600) with the <code>rockyou.txt</code> wordlist to test password strength.</p>
+
+                    <h3>Screenshots &amp; Analysis</h3>
+                    <div class="screenshot-grid">
+                        <div class="screenshot-item">
+                            <img src="screenshots/passwords-1.jpg" alt="Wireshark NTLMv2 response capture" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Capturing NTLMv2 Response</strong><br>Wireshark filtering on <code>ntlmssp</code> to locate the NTLMv2 authentication packet. Here I copy the NTLMv2 response and NTProofStr that will be used to build the crackable hash.</div>
+                        </div>
+
+                        <div class="screenshot-item">
+                            <img src="screenshots/passwords-2.jpg" alt="Wireshark NTLM server challenge" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Server Challenge Value</strong><br>From the NTLM server challenge packet, I copy the 8-byte challenge value. Combined with the response, this is what Hashcat needs for mode 5600 (NTLMv2).</div>
+                        </div>
+
+                        <div class="screenshot-item">
+                            <img src="screenshots/passwords-3.jpg" alt="Building hashes.txt in Notepad" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Building hashes.txt</strong><br>On the Windows machine I paste together the username, domain, challenge, and NTLMv2 response in the correct format (<code>user::domain:challenge:response</code>) and save them as <code>hashes.txt</code>.</div>
+                        </div>
+
+                        <div class="screenshot-item">
+                            <img src="screenshots/passwords-4.jpg" alt="Serving hashes.txt to Kali" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Moving Hashes to Kali</strong><br>Using a simple HTTP share, I browse to <code>192.168.1.2/hashes.txt</code> from Kali and download the file. Now the attacker has all captured hashes offline with no risk of account lockouts.</div>
+                        </div>
+
+                        <div class="screenshot-item">
+                            <img src="screenshots/passwords-5.jpg" alt="Starting Hashcat with rockyou wordlist" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Hashcat Attack Command</strong><br>Running Hashcat in NTLMv2 mode (<code>-m 5600</code>) against <code>hashes.txt</code> with the <code>rockyou.txt</code> wordlist. This simulates a real attacker testing millions of common passwords.</div>
+                        </div>
+
+                        <div class="screenshot-item">
+                            <img src="screenshots/passwords-6.jpg" alt="Hashcat cracking progress" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Cracking Progress &amp; Stats</strong><br>Hashcat status view showing key metrics such as speed, progress through the keyspace, and candidates being tested. Weak passwords would quickly appear here as “Recovered”.</div>
+                        </div>
+
+                        <div class="screenshot-item">
+                            <img src="screenshots/passwords-7.jpg" alt="Additional Wireshark NTLM details" onclick="window.open(this.src)">
+                            <div class="screenshot-caption"><strong>Authentication Context</strong><br>Wireshark details of the NTLM Secure Service Provider including domain name, username, and workstation. This context ties each hash back to a real user account.</div>
+                        </div>
+                    </div>
+
+                    <h3>Key Takeaways</h3>
+                    <p>• NTLMv2 hashes can be captured by anyone who can see internal network traffic.<br>
+                       • Moving hashes offline allows attackers to brute-force without triggering lockouts.<br>
+                       • Long, unique passwords and multi-factor authentication dramatically reduce this risk.</p>
                 </div>
             </div>
         </div>
@@ -492,12 +880,12 @@
             <p>My short-term goal is to establish myself as a skilled cybersecurity professional, gaining real-world experience in threat detection and incident response. Long-term, I aim to advance into specialized roles such as Security Architect or Penetration Testing Lead, where I can design comprehensive security solutions and mentor others in the field. I'm committed to continuous learning through certifications like Security+, CEH, and eventually CISSP to stay current with industry standards and emerging threats.</p>
 
             <h3>What I Bring</h3>
-            <p>I offer a unique combination of technical expertise and practical experience gained through academic projects, competitive cybersecurity challenges with the National Cyber League, and hands-on work as a Network Technician Assistant. My projects demonstrate proficiency in network traffic analysis, intrusion detection systems, and password security assessment. I'm a strong communicator who can translate complex technical concepts for non-technical stakeholders, and I approach every challenge with accountability and attention to detail—skills refined through both my cybersecurity coursework and professional experience.</p>
+            <p>I offer a unique combination of technical expertise and practical experience gained through academic projects, competitive cybersecurity challenges with the National Cyber League, and hands-on work as a Network Technician Assistant. My labs demonstrate proficiency in network traffic analysis, intrusion detection systems, and password security assessment. I'm a strong communicator who can translate complex technical concepts for non-technical stakeholders, and I approach every challenge with accountability and attention to detail.</p>
         </section>
 
         <section id="contact">
             <h2>Get In Touch</h2>
-            <p>I'd love to hear from you! Whether you have a question, opportunity, or just want to connect, feel free to reach out.</p>
+            <p>I'd love to hear from you. Whether you have a question, opportunity, or just want to connect, feel free to reach out.</p>
             
             <div class="contact-info">
                 <p><strong>Email:</strong> <a href="mailto:jedpcooper@gmail.com">jedpcooper@gmail.com</a></p>
@@ -543,7 +931,7 @@
 
         // Close modal when clicking outside of it
         window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
+            if (event.target.classList && event.target.classList.contains('modal')) {
                 event.target.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
